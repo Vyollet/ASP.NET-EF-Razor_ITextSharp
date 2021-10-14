@@ -22,11 +22,11 @@ namespace Task
         [Required]
         public string Zadacha1 { get; set; }
         public string Zadacha2 { get; set; }
-        public string Zadacha3 { get; set; }
+        /*public string Zadacha3 { get; set; }
         public string Zadacha4 { get; set; }
         public string Zadacha5 { get; set; }
         public string Zadacha6 { get; set; }
-        public string Zadacha7 { get; set; }
+        public string Zadacha7 { get; set; }*/
 
     }
 }

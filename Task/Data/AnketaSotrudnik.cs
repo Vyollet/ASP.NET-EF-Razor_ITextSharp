@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Task
 {
@@ -18,23 +14,14 @@ namespace Task
             context.SaveChanges();
         }
 
-
-        /*public static void GetAll()
+        public static void Get()
         {
             var context = new DataContext();
-            if (context.OpisanieZadach.Any())
+            foreach (Data data in context.OpisanieZadach)
             {
-                var data = context.OpisanieZadach.ToList();
-                /*foreach (var Datas in data)
-                {
-                    Console.WriteLine($"ID:{Datas.Id}; Product Name:{Datas.OpisanieZadach1}");
-                }#1#
+                PDFedit.text = data.Zadacha1;
             }
-            else
-            {
-                Console.WriteLine("NO");
-            }
-        }*/
+        }
 
     }
 }
