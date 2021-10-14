@@ -1,13 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task.Pages
 {
+    public class DataContext : DbContext
+    {
+
+        public DbSet<Data> OpisanieZadach { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
+        {
+            dbContextOptionsBuilder.UseSqlite("Data Source=..\\BD.db");
+        }       
+    }
+
+    public class Data
+    {
+        [Key]
+        public int Id { get; set; } 
+        [Required]
+        public string Zadacha1 { get; set; }
+        public string Zadacha2 { get; set; }
+        public string Zadacha3 { get; set; }
+        public string Zadacha4 { get; set; }
+        public string Zadacha5 { get; set; }
+        public string Zadacha6 { get; set; }
+        public string Zadacha7 { get; set; }
+
+    }
     public class IndexModel : PageModel
     {
        
@@ -18,8 +40,9 @@ namespace Task.Pages
         
         public IActionResult OnPost([FromForm]string name)
         {
-  
-            string dat1 = Request.Form["textarea1"];
+
+            PDFedit.EdiiText();
+            /*string dat1 = Request.Form["textarea1"];
             string dat2 = Request.Form["textarea2"];
             string dat3 = Request.Form["textarea3"];
             string dat4 = Request.Form["textarea4"];
@@ -44,6 +67,7 @@ namespace Task.Pages
             };
 
             AnketaSotrudnik.Add(data);
+            return RedirectToAction("ButtonClick");*/
             return RedirectToAction("ButtonClick");
         }
     }

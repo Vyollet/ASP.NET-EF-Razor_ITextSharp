@@ -37,11 +37,11 @@ body {
 }
 
 textarea {
-    width: 50%;
+    width: 70%;
     height: 36px;
     font-size: 16px;
     clear: both;
-    margin-right:30%;
+    resize: none;
 }
 
 input {
@@ -50,11 +50,18 @@ input {
     margin-top: 20%;
     margin-left: 90%;
 }
-label#container{
+label#TextField{
     font-size: 16px;
     height: 20px;
     width: 200px;
+    float:left;
+    margin-right:15px;
+}
 
+label#Comment{
+    font-size: 16px;
+    height: 20px;
+    width: 200px;
     float:left;
     margin-right:15px;
 }

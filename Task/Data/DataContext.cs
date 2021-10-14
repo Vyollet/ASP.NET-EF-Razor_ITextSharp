@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -20,8 +17,9 @@ namespace Task
 
     public class Data
     {
-
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; set; } 
+        [Required]
         public string Zadacha1 { get; set; }
         public string Zadacha2 { get; set; }
         public string Zadacha3 { get; set; }
