@@ -4,7 +4,65 @@
     ViewData["Title"] = "Home page";
 }
 
+    <script type='text/javascript'>
+        function addFields(){
+            let container = document.getElementById("container");
+            let elems = document.querySelectorAll("#Comment");;
+            let count = 1;
+            for (let i = 0; i < elems.length; i++)
+            {
+                if (count == 7){
+                    return;
+                }
+               count++;
+            }
+            for (let i = 0; i < 2; i++){
+                if (i === 0){
+                let label = container.appendChild(document.createElement("Label"));
+                label.id = "textfield" + count.toString();
+                label.textContent = count}
+                else{
+                label = container.appendChild(document.createElement("Label"));
+                label.id = "Comment";
+                label.textContent = "Комментарий";}
+                let input = document.createElement("textarea");
+                input.id = "textarea" + count;
+                input.name = "textarea" + count;
+                input.onkeyup = function() {this.style.height='24px'; this.style.height = this.scrollHeight + 12 + 'px';};
+                container.appendChild(input);
+                container.appendChild(document.createElement("br"));          
+                var br = document.createElement("br");
+                container.appendChild(br);
+                if (i === 1){
+                container.appendChild(document.createElement("br"));          
+                var br = document.createElement("br");
+                container.appendChild(br);
+                } 
+            }          
+        }
+    </script>
+
+    
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br />
+    <label id="Important">Описание основных ключевых задач:</label>
+    <br /><br />
+    Описание основных (ключевых) задач, функциональных обязанностей по должности (Не более 6-7)
 </div>
+<div class="text-right">
+    <button id="Test" onclick="addFields()">Добавить поле</button></div>
+<form method="post">
+     <div class="text-right">
+    <br />
+         <label id="TextField">1</label>
+         <textarea  id="textarea1" name="textarea1" onkeyup="this.style.height='24px'; this.style.height = this.scrollHeight + 12 + 'px';">
+</textarea><br /><br />
+         <label id="Comment">Комментарий</label>
+         <textarea id="textarea1"  name="textarea1" onkeyup="this.style.height='24px'; this.style.height = this.scrollHeight + 12 + 'px';">
+</textarea><br /><br /><br /><br />
+         <div id="container"/></div>
+         <div class="text-bottom">
+
+        <input type="submit" value="Завершить">
+        </div>
+  </form>
