@@ -22,15 +22,24 @@ namespace Task.Pages
                 Zadacha1 = dataZ1,
                 Zadacha2 = dataZ2,
             };
-
-            var dataC1 = data.Zadacha1.Remove(dataZ1.IndexOf(','), dataZ1.Length - dataZ1.IndexOf(','));
+            
+            var dataC1 = dataZ1.Substring(dataZ1.IndexOf(',')+1);
+            
+            dataZ1 = dataZ1.Substring(0, dataZ1.IndexOf(','));
             
 
             string sourceFile = @"..\\Doc.pdf";
             string descFile = @"..\\DocItext.pdf";
-            PDFedit pdfObj = new PDFedit();
-            pdfObj.ReplaceTextInPDF(sourceFile, descFile, "<",dataZ1);
-            //pdfObj.ReplaceTextInPDF(tempSource, descFile, ">",dataC1);
+            PDFedit pdfEnd = new PDFedit();
+            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "<",dataZ1);
+            
+            //StartTemp
+            if (dataC1 != null) 
+            {
+                string output = @"..\\DocItextFinal.pdf";
+                pdfEnd.ReplaceTextInPDF(descFile, output, ">",dataC1);
+            }
+            //EndTemp
 
             return RedirectToAction("ButtonClick");
         }
