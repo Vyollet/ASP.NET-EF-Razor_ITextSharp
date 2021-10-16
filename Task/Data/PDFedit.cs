@@ -20,7 +20,6 @@ namespace Task
         {
             using (Stream inputPdfStream = new FileStream(inputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (Stream outputPdfStream = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            using (Stream outputPdfStream2 = new FileStream(outputFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
                 PdfReader reader = new PdfReader(inputPdfStream);
 
@@ -53,28 +52,25 @@ namespace Task
     public class RectAndText
     {
         public Rectangle Rect;
-        public String Text;
-        public RectAndText(Rectangle rect, String text)
+        public string Text;
+        public RectAndText(Rectangle rect, string text)
         {
-            this.Rect = rect;
-            this.Text = text;
+            Rect = rect;
+            Text = text;
         }
     }
     public class MyLocationTextExtractionStrategy : LocationTextExtractionStrategy
     {
-        //Hold each coordinate
         public List<RectAndText> myPoints = new List<RectAndText>();
 
-        //The string that we're searching for
-        public String TextToSearchFor { get; set; }
+        public string TextToSearchFor { get; }
 
-        //How to compare strings
-        public System.Globalization.CompareOptions CompareOptions { get; set; }
+        public System.Globalization.CompareOptions CompareOptions { get;}
 
-        public MyLocationTextExtractionStrategy(String textToSearchFor, System.Globalization.CompareOptions compareOptions = System.Globalization.CompareOptions.None)
+        public MyLocationTextExtractionStrategy(string textToSearchFor, System.Globalization.CompareOptions compareOptions = System.Globalization.CompareOptions.None)
         {
-            this.TextToSearchFor = textToSearchFor;
-            this.CompareOptions = compareOptions;
+            TextToSearchFor = textToSearchFor;
+            CompareOptions = compareOptions;
         }
 
         public override void RenderText(TextRenderInfo renderInfo)
@@ -96,7 +92,7 @@ namespace Task
             var bottomLeft = firstChar.GetDescentLine().GetStartPoint();
             var topRight = lastChar.GetAscentLine().GetEndPoint();
 
-            var rect = new iTextSharp.text.Rectangle(bottomLeft[Vector.I1], bottomLeft[Vector.I2], topRight[Vector.I1], topRight[Vector.I2]);
+            var rect = new Rectangle(bottomLeft[Vector.I1], bottomLeft[Vector.I2], topRight[Vector.I1], topRight[Vector.I2]);
 
             myPoints.Add(new RectAndText(rect, TextToSearchFor));
         }
