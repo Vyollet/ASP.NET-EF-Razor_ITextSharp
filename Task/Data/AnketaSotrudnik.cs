@@ -16,11 +16,7 @@ namespace Task
 
         public static void Get()
         {
-            var context = new DataContext();
-            foreach (Data data in context.OpisanieZadach)
-            {
-                
-            }
+
         }
 
     }

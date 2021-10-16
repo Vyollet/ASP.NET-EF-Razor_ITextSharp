@@ -13,30 +13,32 @@ namespace Task.Pages
         {
 
 
-            string dataZ1 = Request.Form["textarea1"];
-            string dataZ2 = Request.Form["textarea2"];
+            string dataZadacha1 = Request.Form["textarea1"];
+            string dataZadacha2 = Request.Form["textarea2"];
 
             Data data = new Data()
             {
                 Id = 0,
-                Zadacha1 = dataZ1,
-                Zadacha2 = dataZ2,
+                Zadacha1 = dataZadacha1,
+                Zadacha2 = dataZadacha2,
             };
             
-            var dataC1 = dataZ1.Substring(dataZ1.IndexOf(',')+1);
+            AnketaSotrudnik.Add(data);
             
-            dataZ1 = dataZ1.Substring(0, dataZ1.IndexOf(','));
+            var dataC1 = dataZadacha1.Substring(dataZadacha1.IndexOf(',')+1);
+            
+            dataZadacha1 = dataZadacha1.Substring(0, dataZadacha1.IndexOf(','));
             
 
             string sourceFile = @"..\\Doc.pdf";
             string descFile = @"..\\DocItext.pdf";
             PDFedit pdfEnd = new PDFedit();
-            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "<",dataZ1);
+            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "<",dataZadacha1);
             
             //StartTemp
             if (dataC1 != null) 
             {
-                string output = @"..\\DocItextFinal.pdf";
+                string output = @"..\\DocItextFinal.pdf"; //change
                 pdfEnd.ReplaceTextInPDF(descFile, output, ">",dataC1);
             }
             //EndTemp
