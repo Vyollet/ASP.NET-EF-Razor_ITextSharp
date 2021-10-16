@@ -19,7 +19,7 @@ namespace Task
             var context = new DataContext();
             foreach (Data data in context.OpisanieZadach)
             {
-                PDFedit.text = data.Zadacha1;
+                
             }
         }
 

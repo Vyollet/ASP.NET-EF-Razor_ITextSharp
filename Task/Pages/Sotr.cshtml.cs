@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,30 +13,25 @@ namespace Task.Pages
         {
 
 
-            string dat1 = Request.Form["textarea1"];
-            string dat2 = Request.Form["textarea2"];
-            /*string dat3 = Request.Form["textarea3"];
-            string dat4 = Request.Form["textarea4"];
-            string dat5 = Request.Form["textarea5"];
-            string dat6 = Request.Form["textarea6"];
-            string dat7 = Request.Form["textarea7"];*/
-
-
+            string dataZ1 = Request.Form["textarea1"];
+            string dataZ2 = Request.Form["textarea2"];
 
             Data data = new Data()
             {
                 Id = 0,
-                Zadacha1 = dat1,
-                Zadacha2 = dat2,
-                /*Zadacha3 = dat3,
-                Zadacha4 = dat4,
-                Zadacha5 = dat5,
-                Zadacha6 = dat6,
-                Zadacha7 = dat7*/
+                Zadacha1 = dataZ1,
+                Zadacha2 = dataZ2,
             };
 
-            AnketaSotrudnik.Add(data);
-            PDFedit.EdiiText();
+            var dataC1 = data.Zadacha1.Remove(dataZ1.IndexOf(','), dataZ1.Length - dataZ1.IndexOf(','));
+            
+
+            string sourceFile = @"..\\Doc.pdf";
+            string descFile = @"..\\DocItext.pdf";
+            PDFedit pdfObj = new PDFedit();
+            pdfObj.ReplaceTextInPDF(sourceFile, descFile, "<",dataZ1);
+            //pdfObj.ReplaceTextInPDF(tempSource, descFile, ">",dataC1);
+
             return RedirectToAction("ButtonClick");
         }
     }
