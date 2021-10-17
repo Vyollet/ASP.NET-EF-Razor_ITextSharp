@@ -5,6 +5,7 @@ using iTextSharp.text.pdf.parser;
 using System.IO;
 using System.Linq;
 using iTextSharp.text;
+using Task.Pages;
 
 namespace Task
 {
@@ -22,26 +23,35 @@ namespace Task
             using (Stream outputPdfStream = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
                 PdfReader reader = new PdfReader(inputPdfStream);
-
-                PdfStamper stamper = new PdfStamper(reader, outputPdfStream); 
-                for (var i = 1; i <= reader.NumberOfPages; i++)
+                string[] textSearch = {"<", ">"};
+                var CommToBeReplac = textToAdd.Substring(textToAdd.IndexOf(',')+1);
+                textToAdd = textToAdd.Substring(0, textToAdd.IndexOf(','));
+                string[] AllZadacha = {textToAdd, CommToBeReplac};
+                
+                PdfStamper stamper = new PdfStamper(reader, outputPdfStream);
+                for (var j = 0; j < textSearch.Length; j++)
                 {
-                    var tt = new MyLocationTextExtractionStrategy(textToBeSearched);
-                    var ex = PdfTextExtractor.GetTextFromPage(reader, i, tt); 
-                    foreach (var p in tt.myPoints)
+                    for (var i = 1; i <= reader.NumberOfPages; i++)
                     {
-                        PdfContentByte cb = stamper.GetOverContent(i);
+                        var tt = new MyLocationTextExtractionStrategy(textSearch[j]);
+                        var ex = PdfTextExtractor.GetTextFromPage(reader, i, tt);
+                        foreach (var p in tt.myPoints)
+                        {
+                            PdfContentByte cb = stamper.GetOverContent(i);
 
-                        BaseFont bf = BaseFont.CreateFont("c:/windows/fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                        cb.SetColorFill(BaseColor.BLACK);
-                        cb.SetFontAndSize(bf, 8);
+                            BaseFont bf = BaseFont.CreateFont("c:/windows/fonts/arial.ttf", BaseFont.IDENTITY_H,
+                                BaseFont.EMBEDDED);
+                            cb.SetColorFill(BaseColor.BLACK);
+                            cb.SetFontAndSize(bf, 8);
 
-                        cb.BeginText();
-                        
-                        cb.ShowTextAligned(0, textToAdd, p.Rect.Left + 2, p.Rect.Top - 6, 0);
-                        cb.EndText();
+                            cb.BeginText();
+
+                            cb.ShowTextAligned(0, AllZadacha[j], p.Rect.Left + 2, p.Rect.Top - 6, 0);
+                            cb.EndText();
+                        }
                     }
                 }
+
                 stamper.Close();
             }
         }
