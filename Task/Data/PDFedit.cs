@@ -5,7 +5,7 @@ using iTextSharp.text.pdf.parser;
 using System.IO;
 using System.Linq;
 using iTextSharp.text;
-using Task.Pages;
+
 
 namespace Task
 {
@@ -23,7 +23,7 @@ namespace Task
             using (Stream outputPdfStream = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
                 PdfReader reader = new PdfReader(inputPdfStream);
-                string[] textSearch = {"<", ">"};
+                string[] textSearch = {"test", "01"};
                 var CommToBeReplac = textToAdd.Substring(textToAdd.IndexOf(',')+1);
                 textToAdd = textToAdd.Substring(0, textToAdd.IndexOf(','));
                 string[] AllZadacha = {textToAdd, CommToBeReplac};
