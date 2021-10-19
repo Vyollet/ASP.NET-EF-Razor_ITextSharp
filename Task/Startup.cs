@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json;
 
 namespace Task
@@ -16,23 +14,27 @@ namespace Task
         public Startup(IConfiguration _configuration)
         {
             Configuration = _configuration;
+            
         }
 
         public IConfiguration Configuration { get; }
         
         public void ConfigureServices(IServiceCollection services)
         {
+        
+            //services.AddEntityFrameworkSqlite().AddDbContext<DataContext>(options=> options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]));
+            
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddMvc();
 
             services.AddMvc()
                 .AddJsonOptions(options =>
                     options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All);
-
-            /*services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            });*/
-           
+         
        }
 
         

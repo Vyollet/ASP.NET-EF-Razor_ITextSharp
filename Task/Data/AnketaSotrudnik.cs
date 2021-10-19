@@ -2,16 +2,20 @@
 
 namespace Task
 {
-    public static class AnketaSotrudnik
+    public class AnketaSotrudnik
     { 
-
+        private static DataContext _context;
+        public AnketaSotrudnik(DataContext context)
+        {
+            _context = context;
+        }
+        
         public static void Add(Data data)
         {
-            var context = new DataContext();
-            var entity = context.OpisanieZadach.Add(data);
+            var entity = _context.OpisanieZadach.Add(data);
             entity.State = EntityState.Added;
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public static void Get()

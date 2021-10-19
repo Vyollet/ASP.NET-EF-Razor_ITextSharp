@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 
 namespace Task.Pages
@@ -9,9 +11,11 @@ namespace Task.Pages
     public class RukovModel : PageModel
     {
         private readonly DataContext _context;
-        public RukovModel(DataContext context)
+        private readonly MvcOptions _mvcOptions;
+        public RukovModel(DataContext context, IOptions<MvcOptions> mvcOptions)
         {
             _context = context;
+            _mvcOptions = mvcOptions.Value;
         }
 
         [BindProperty]
@@ -21,12 +25,17 @@ namespace Task.Pages
         public async System.Threading.Tasks.Task OnGetAsync()
         {
               
-            using (var db = new DataContext())
             {
+                /*
                 Zadachi = await _context.OpisanieZadach
                     .Include(c => c.Id)
                     .AsNoTracking()
                     .ToListAsync();
+                    */
+                
+                
+                Zadachi = await _context.OpisanieZadach.Take(
+                    _mvcOptions.MaxModelValidationErrors).ToListAsync();
             }
 
         }

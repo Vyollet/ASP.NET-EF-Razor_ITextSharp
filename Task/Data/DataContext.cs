@@ -1,20 +1,23 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.CodeAnalysis.Options;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 
 namespace Task
 {
     public class DataContext : DbContext
     {
-
-
-        public DbSet<Data> OpisanieZadach { get; set; }
-
+        /*
         protected void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("DataSource=BD.db");
+            */
+
+        public DbSet<Data> OpisanieZadach { get; set; }
+        
+        public DataContext(DbContextOptions options) 
+            : base(options) {
+        }
+
+ 
 
     }
 
