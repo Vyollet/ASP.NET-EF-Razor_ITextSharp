@@ -8,17 +8,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.zadachi.Id)
+                Номер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.zadachi.Zadacha1)
+                Задача1, Комментарий
             </th>
+            <th>
+                Задача2, Комментарий
+                </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Zadachi)
-{
+{   <form method="post">  
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -30,11 +33,14 @@
                 @Html.DisplayFor(modelItem => item.Zadacha2)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <button asp-page-handler="delete" asp-route-id="@item.Id" 
+                        onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">delete</button>  
             </td>
         </tr>
+    </form>
+    
 }
     </tbody>
 </table>
+
+

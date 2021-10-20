@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Task.Pages
 {
+    
     public class RukovModel : PageModel
     {
         private readonly DataContext _context;
@@ -17,56 +20,28 @@ namespace Task.Pages
             _context = context;
             _mvcOptions = mvcOptions.Value;
         }
-
-        [BindProperty]
-        public Data zadachi { get; set; }
-
+        
         public IList<Data> Zadachi { get; set; }
+        
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-              
-            {
-                /*
-                Zadachi = await _context.OpisanieZadach
-                    .Include(c => c.Id)
-                    .AsNoTracking()
-                    .ToListAsync();
-                    */
-                
-                
                 Zadachi = await _context.OpisanieZadach.Take(
                     _mvcOptions.MaxModelValidationErrors).ToListAsync();
-            }
-
         }
-
-    }
-
-
-    /*public List<Data> GetAllUsers()
-    {
-        List<Data> ZadachiList = null;
-
-        using (DataTable table = SqlDBHelper.ExecuteSelectCommand("GetAllUsers", CommandType.StoredProcedure))
+        
+        
+        public async System.Threading.Tasks.Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            if (table.Rows.Count > 0)
+            var zadacha = await _context.OpisanieZadach.FindAsync(id);
+
+            if (zadacha != null)
             {
-                ZadachiList = new List<Data>();
-
-                foreach (DataRow row in table.Rows)
-                {
-                    Data data = new Data();
-
-                    data.Id = (int) table.Rows[0]["Id"];
-                    data.Zadacha1 = table.Rows[0]["Pass"].ToString();
-                    data.Zadacha2 = table.Rows[0]["Name"].ToString();
-
-                    ZadachiList.Add(data);
-                }
+                _context.OpisanieZadach.Remove(zadacha);
+                await _context.SaveChangesAsync();
             }
+
+            return RedirectToPage();
         }
-
-        return ZadachiList;
-    }*/
-
+       
+    }
 }

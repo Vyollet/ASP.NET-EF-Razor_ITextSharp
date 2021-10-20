@@ -3,7 +3,6 @@
 @{
     
 }
-
     <script type='text/javascript'>
         function addFields(){
             let container = document.getElementById("container");
@@ -20,7 +19,7 @@
                 if (i === 0){
                 let label = container.appendChild(document.createElement("Label"));
                 label.id = "TextField";
-                label.textContent = count}
+                label.textContent =  count + " Задача"}
                 else{
                 label = container.appendChild(document.createElement("Label"));
                 label.id = "Comment";
@@ -45,16 +44,16 @@
     
 <div class="text-center">
     <br />
-    <label id="Important">Описание основных ключевых задач:</label>
+    <h3><label id="Important">Описание основных ключевых задач:</label></h3>
     <br /><br />
-    Описание основных (ключевых) задач, функциональных обязанностей по должности (Не более 6-7)
+    <h4>Описание основных (ключевых) задач, функциональных обязанностей по должности (Не более 6-7)</h4>
 </div>
 <div class="text-right">
     <button id="Test" onclick="addFields()">Добавить поле</button></div>
 <form method="post">
      <div class="text-right">
     <br />
-         <label id="TextField">1</label>
+         <label id="TextField">1 Задача</label>
          <textarea  id="textarea1" name="textarea1" onkeyup="this.style.height='24px'; this.style.height = this.scrollHeight + 12 + 'px';">
 </textarea><br /><br />
          <label id="Comment">Комментарий</label>
@@ -62,7 +61,6 @@
 </textarea><br /><br /><br /><br />
          <div id="container"/></div>
          <div class="text-bottom">
-
         <input type="submit" value="Завершить">
         </div>
   </form>

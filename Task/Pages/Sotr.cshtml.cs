@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Task.Pages
 {
@@ -8,12 +9,26 @@ namespace Task.Pages
         public void OnGet()
         {
         }
+        private static DataContext _context;
+
+        public SotrModel(DataContext context)
+        {
+            _context = context;
+        }
+        
+        public static void Add(Data data)
+        {
+            var entity = _context.OpisanieZadach.Add(data);
+            entity.State = EntityState.Added;
+
+            _context.SaveChanges();
+        }
+        
         public IActionResult OnPost([FromForm] string name)
         {
-           
-
             string dataZadacha1 = Request.Form["textarea1"];
             string dataZadacha2 = Request.Form["textarea2"];
+            //string dataZadacha3 = Request.Form["textarea3"];
 
             Data data = new Data()
             {
@@ -22,19 +37,18 @@ namespace Task.Pages
                 Zadacha2 = dataZadacha2,
             };
             
-            AnketaSotrudnik.Add(data);
-            
-            //Local
-            //var dataComment1 = dataZadacha1.Substring(dataZadacha1.IndexOf(',')+1);
-            
-            //dataZadacha1 = dataZadacha1.Substring(0, dataZadacha1.IndexOf(','));
-            
+            Add(data);
 
-            string sourceFile = @"..\\Doc.pdf";
+            //
+            //Выгрузка в pdf
+            //
+            /*string sourceFile = @"..\\Doc.pdf";
             string descFile = @"..\\DocItext.pdf";
             PDFedit pdfEnd = new PDFedit();
-            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "",dataZadacha1);
+            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "",dataZadacha1);*/
+            //
 
+            
             return RedirectToAction("ButtonClick");
         }
     }
