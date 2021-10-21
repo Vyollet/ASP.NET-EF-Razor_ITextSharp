@@ -42,10 +42,10 @@ namespace Task.Pages
             //
             //Выгрузка в pdf
             //
-            /*string sourceFile = @"..\\Doc.pdf";
+            string sourceFile = @"..\\Doc.pdf";
             string descFile = @"..\\DocItext.pdf";
             PDFedit pdfEnd = new PDFedit();
-            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "",dataZadacha1);*/
+            pdfEnd.ReplaceTextInPDF(sourceFile, descFile, "",dataZadacha1);
             //
 
             
