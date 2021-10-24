@@ -1,10 +1,14 @@
-﻿namespace Task.anketaCLasses
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace Task.anketaCLasses
 {
-    public class employeeEffectivenesByManager
+    public class employeeEffectivenesByManager : Controller
     {
         private static DataContext _context;
 
-        public *(DataContext context)
+        public employeeEffectivenesByManager(DataContext context)
         {
             _context = context;
         }
@@ -19,11 +23,12 @@
         
         public IActionResult OnPost([FromForm] string name)
         {
-            string workload = Request.Form["areaWorkload"];
-            string additionalProjects = Request.Form["areaAdditionalProjects"];
-            string qualityExecution = Request.Form["areaQualityExecution"];
-            string timeLineExecution = Request.Form["areaTimeLineExecution"];
-            string evaluenceEffectivenes = Request.Form["areaEvaluenceEffectivenes"];
+            
+            string workload = "areaWorkload";
+            string additionalProjects = "areaAdditionalProjects";
+            string qualityExecution = "areaQualityExecution";
+            string timeLineExecution = "areaTimeLineExecution";
+            string evaluenceEffectivenes = "areaEvaluenceEffectivenes";
 
             DataEmployeeEffectivenessByManager data = new DataEmployeeEffectivenessByManager()
             {
@@ -34,6 +39,9 @@
                 TimelineExecution =  timeLineExecution,
                 EvaluenceEffectivenes =  evaluenceEffectivenes
             };
+            Add(data);
+            
+            return OnPost(name);
         }
     }
 }

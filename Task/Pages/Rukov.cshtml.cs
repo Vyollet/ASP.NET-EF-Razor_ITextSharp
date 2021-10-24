@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -21,22 +19,22 @@ namespace Task.Pages
             _mvcOptions = mvcOptions.Value;
         }
         
-        public IList<Data> Zadachi { get; set; }
+        public IList<DataEmployeeEffectiveness> Zadachi { get; set; }
         
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-                Zadachi = await _context.OpisanieZadach.Take(
+                Zadachi = await _context.employeeEffectivenesses.Take(
                     _mvcOptions.MaxModelValidationErrors).ToListAsync();
         }
         
         
         public async System.Threading.Tasks.Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var zadacha = await _context.OpisanieZadach.FindAsync(id);
+            var zadacha = await _context.employeeEffectivenesses.FindAsync(id);
 
             if (zadacha != null)
             {
-                _context.OpisanieZadach.Remove(zadacha);
+                _context.employeeEffectivenesses.Remove(zadacha);
                 await _context.SaveChangesAsync();
             }
 

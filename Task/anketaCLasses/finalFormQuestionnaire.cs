@@ -1,13 +1,18 @@
-﻿namespace Task.anketaCLasses
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Task.anketaCLasses
 {
-    public class finalFormQuestionnaire
+    public class finalFormQuestionnaire : Controller
     {
         private static DataContext _context;
 
-        public *(DataContext context)
+        
+        public finalFormQuestionnaire(DataContext context)
         {
             _context = context;
         }
+        
 
         public static void Generate(DataFinalFormQuestionnaire data)
         {
@@ -31,6 +36,8 @@
                 EmployeeEffectivenessByManagerID = 0,
                 EmployeeEffectivenessID = 0
             };
+            Generate(data);
+            return OnPost(name);
         }
     }
 }

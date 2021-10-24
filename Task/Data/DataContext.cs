@@ -7,11 +7,14 @@ namespace Task
 {
     public class DataContext : DbContext
     {
-        /*
-        protected void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("DataSource=BD.db");
-            */
-
+        
+        /*protected void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlite("DataSource=BD.db");*/
+            
+        public DataContext(DbContextOptions<DataContext> options)
+            : base(options)
+        { }
+        
         public DbSet<DataEmployeeEffectiveness> employeeEffectivenesses { get; set; }
         public DbSet<DataEmployeeEffectivenessByManager> employeeEffectivenessByManager { get; set; }
         public DbSet<DataLevelCompetenceKnowledgeDevelopment>  levelcompetenceknowledgedevelopment{ get; set; }
@@ -24,6 +27,7 @@ namespace Task
 
     }
 
+    
     public class DataEmployeeEffectiveness
     {
         [Key] public int EmployeeEffectivenessID { get; set; } 

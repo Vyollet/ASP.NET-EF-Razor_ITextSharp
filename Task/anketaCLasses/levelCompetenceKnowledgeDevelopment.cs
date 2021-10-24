@@ -1,13 +1,17 @@
-﻿namespace Task.anketaCLasses
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Task.anketaCLasses
 {
-    public class levelAssessmentCompetenceDevelopment
+    public class levelAssessmentCompetenceDevelopment : Controller
     {
         private static DataContext _context;
-
-        public *(DataContext context)
+        
+        public levelAssessmentCompetenceDevelopment(DataContext context)
         {
             _context = context;
         }
+        
 
         public static void Add(DataLevelCompetenceKnowledgeDevelopment data)
         {
@@ -17,15 +21,15 @@
             _context.SaveChanges();
         }
         
-        public IActionResult OnPost([FromForm] string name)
+        public IActionResult OnPost([FromForm]  string name)
         {
-            string evaluenceManager = Request.Form["areaEvaluenceManager"];
-            string evaluenceEmployee = Request.Form["areaEvaluenceEmployee"];
-            string averageValueKnowledge = Request.Form["areaAverageValueKnowledge"];
-            string evaluenceCompetence = Request.Form["areaEvaluenceCompetence"];
-            string averageValueDevelopment = Request.Form["areaAverageValueDevelopment"];
-            int sumValueKnowledge = Request.Form["areaSumValueKnowledge"];
-            int finalEvaluenceDevelopment = Request.Form["areaFinalEvaluenceDevelopment"];
+            string evaluenceManager = "areaEvaluenceManager";
+            string evaluenceEmployee =  "areaEvaluenceEmployee" ;
+            string averageValueKnowledge =  "areaAverageValueKnowledge" ;
+            string evaluenceCompetence =  "areaEvaluenceCompetence" ;
+            string averageValueDevelopment =  "areaAverageValueDevelopment" ;
+            int sumValueKnowledge = 0; //"areaSumValueKnowledge" ;
+            int finalEvaluenceDevelopment = 0; //"areaFinalEvaluenceDevelopment" ;
 
             DataLevelCompetenceKnowledgeDevelopment data = new DataLevelCompetenceKnowledgeDevelopment()
             {
@@ -40,6 +44,8 @@
                 SumValueKnowledge = sumValueKnowledge,
                 FinalEvaluenceDevelopment = finalEvaluenceDevelopment
             };
+            Add(data);
+            return OnPost(name);
         }
     }
 }

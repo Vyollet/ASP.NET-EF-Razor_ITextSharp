@@ -28,7 +28,7 @@ namespace Task
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            
             services.AddMvc();
 
             services.AddMvc()

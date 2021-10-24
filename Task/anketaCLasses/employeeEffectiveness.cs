@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+    
+
 namespace Task.anketaCLasses
 {
-    public class employeeEffectiveness
+    public class employeeEffectiveness : Controller
     {
-      
-       private static DataContext _context;
 
-        public *(DataContext context)
+        private static DataContext _context;
+
+        public employeeEffectiveness(DataContext context)
         {
             _context = context;
         }
@@ -20,22 +22,25 @@ namespace Task.anketaCLasses
 
             _context.SaveChanges();
         }
-        
+
         public IActionResult OnPost([FromForm] string name)
         {
-            string zadachi = Request.Form["areaZadacha"];
-            string achivement = Request.Form["areaAchivement"];
-            string whatWantImprove = Request.Form["areaWhatWantImpove"];
-            string additionalWork = Request.Form["areaAdditionalWork"];
+            string zadachi = "areaZadacha";
+            string achivement = "areaAchivement";
+            string whatWantImprove = "areaWhatWantImpove";
+            string additionalWork = "areaAdditionalWork";
 
 
             DataEmployeeEffectiveness data = new DataEmployeeEffectiveness()
             {
-                EmployEffectivenessID = 0,
+                EmployeeEffectivenessID = 0,
                 Zadacha = zadachi,
                 Achivement = achivement,
                 WhatWantImprove = whatWantImprove,
-                AdditionalWork =  additionalWork;
+                AdditionalWork = additionalWork
             };
+            Add(data);
+            return OnPost(name);
         }
+    }
 }

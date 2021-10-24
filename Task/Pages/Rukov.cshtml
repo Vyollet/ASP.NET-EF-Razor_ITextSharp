@@ -24,16 +24,16 @@
 {   <form method="post">  
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.EmployeeEffectivenessID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Zadacha1)
+                @Html.DisplayFor(modelItem => item.Zadacha)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Zadacha2)
+                @*@Html.DisplayFor(modelItem => item.Zadacha2)*@
             </td>
             <td>
-                <button asp-page-handler="delete" asp-route-id="@item.Id" 
+                <button asp-page-handler="delete" asp-route-id="@item.EmployeeEffectivenessID" 
                         onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">delete</button>  
             </td>
         </tr>

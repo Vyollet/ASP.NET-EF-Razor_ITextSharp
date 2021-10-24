@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Task.Pages
 {
@@ -10,15 +11,17 @@ namespace Task.Pages
         {
         }
         private static DataContext _context;
+        private readonly MvcOptions _mvcOptions;
 
-        public SotrModel(DataContext context)
+        public SotrModel(DataContext context, IOptions<MvcOptions> mvcOptions)
         {
             _context = context;
+            _mvcOptions = mvcOptions.Value;
         }
         
-        public static void Add(Data data)
+        public static void Add(DataEmployeeEffectiveness data)
         {
-            var entity = _context.OpisanieZadach.Add(data);
+            var entity = _context.employeeEffectivenesses.Add(data);
             entity.State = EntityState.Added;
 
             _context.SaveChanges();
@@ -26,15 +29,14 @@ namespace Task.Pages
         
         public IActionResult OnPost([FromForm] string name)
         {
-            string dataZadacha1 = Request.Form["textarea1"];
-            string dataZadacha2 = Request.Form["textarea2"];
+            string dataZadacha1 = Request.Form["areaZadacha"];
+            //string dataZadacha2 = Request.Form["textarea2"];
             //string dataZadacha3 = Request.Form["textarea3"];
 
-            Data data = new Data()
+            DataEmployeeEffectiveness data = new DataEmployeeEffectiveness
             {
-                Id = 0,
-                Zadacha1 = dataZadacha1,
-                Zadacha2 = dataZadacha2,
+                EmployeeEffectivenessID = 0,
+                Zadacha = dataZadacha1
             };
             
             Add(data);

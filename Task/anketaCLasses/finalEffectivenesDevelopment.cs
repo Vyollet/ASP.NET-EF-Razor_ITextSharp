@@ -1,13 +1,19 @@
-﻿namespace Task.anketaCLasses
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
+
+namespace Task.anketaCLasses
 {
-    public class finalEffectivenesDevelopment
-    {
+    public class finalEffectivenesDevelopment : Controller
+    { 
         private static DataContext _context;
 
-        public *(DataContext context)
+        
+        public finalEffectivenesDevelopment(DataContext context)
         {
             _context = context;
         }
+        
 
         public static void Add(DataFinalEffectivenesDevelopment data)
         {
@@ -19,10 +25,10 @@
         
         public IActionResult OnPost([FromForm] string name)
         {
-            string evaluenceEffectivenes = Request.Form["areaEvaluenceEffectivenes"];
-            string evaluenceComptenece = Request.Form["areaEvaluenceComptenece"];
-            string finalEvaluenceEffectivenes = Request.Form["areaFinalEvaluenceEffectivenes"];
-            string proposalsEstablishmentProfessionalStatus = Request.Form["areaProposalsEstablishmentProfessionalStatus"];
+            string evaluenceEffectivenes = "areaEvaluenceEffectivenes";
+            string evaluenceComptenece = "areaEvaluenceComptenece";
+            string finalEvaluenceEffectivenes = "areaFinalEvaluenceEffectivenes";
+            string proposalsEstablishmentProfessionalStatus = "areaProposalsEstablishmentProfessionalStatus";
 
 
             DataFinalEffectivenesDevelopment data = new DataFinalEffectivenesDevelopment()
@@ -33,6 +39,8 @@
                 FinalEvaluenceEffectivenes = finalEvaluenceEffectivenes,
                 ProposalsEstablishmentProfessionalStatus = proposalsEstablishmentProfessionalStatus,
             };
+            Add(data);
+            return OnPost(name);
         }
     }
 }

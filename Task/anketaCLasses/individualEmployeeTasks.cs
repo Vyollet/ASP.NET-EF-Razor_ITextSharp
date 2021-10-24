@@ -1,10 +1,15 @@
-﻿namespace Task.anketaCLasses
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Task.Pages;
+
+namespace Task.anketaCLasses
 {
-    public class individualEmployeeTasks
+    public class individualEmployeeTasks : Controller
     {
         private static DataContext _context;
 
-        public *(DataContext context)
+        public individualEmployeeTasks(DataContext context)
         {
             _context = context;
         }
@@ -19,10 +24,10 @@
         
         public IActionResult OnPost([FromForm] string name)
         {
-            string zadacha = Request.Form["areaZadacha"];
-            string keyResult = Request.Form["areaKeyResult"];
-            string timelineExecution = Request.Form["areaTimelineExecution"];
-            string comment = Request.Form["areaComment"];
+            string zadacha = "areaZadacha";
+            string keyResult = "areaKeyResult";
+            string timelineExecution = "areaTimelineExecution";
+            string comment = "areaComment";
 
 
             DataIndividualEmployeeTasks data = new DataIndividualEmployeeTasks()
@@ -34,6 +39,8 @@
                 Comment = comment
 
             };
+            Add(data);
+            return OnPost(name);
         }
     }
 }
